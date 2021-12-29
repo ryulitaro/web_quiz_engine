@@ -1,0 +1,1448 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="tests.WebQuizEngineTest" tests="1" skipped="0" failures="0" errors="0" timestamp="2021-12-29T09:32:23" hostname="Hyeseungs-MacBook-Pro-2.local" time="31.247">
+  <properties/>
+  <testcase name="start" classname="tests.WebQuizEngineTest" time="31.247"/>
+  <system-out><![CDATA[?[1;31m
+Start test 1?[0m
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.6)
+
+2021-12-29 18:32:24.144  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Starting WebQuizEngine using Java 17.0.1 on Hyeseungs-MacBook-Pro-2.local with PID 35037 (started by litaro in /Users/litaro/Desktop/Projects/Web Quiz Engine/Web Quiz Engine/task)
+2021-12-29 18:32:24.147  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : No active profile set, falling back to default profiles: default
+2021-12-29 18:32:25.371  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-12-29 18:32:25.436  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 3 JPA repository interfaces.
+2021-12-29 18:32:26.121  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8889 (http)
+2021-12-29 18:32:26.139  INFO 35037 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-12-29 18:32:26.139  INFO 35037 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-12-29 18:32:26.267  INFO 35037 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-12-29 18:32:26.267  INFO 35037 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2064 ms
+2021-12-29 18:32:26.406  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2021-12-29 18:32:26.648  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2021-12-29 18:32:26.655  INFO 35037 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:../quizdb'
+2021-12-29 18:32:26.835  INFO 35037 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-29 18:32:26.900  INFO 35037 --- [    Test worker] org.hibernate.Version                    : HHH000412: Hibernate ORM core version 5.4.32.Final
+2021-12-29 18:32:27.097  INFO 35037 --- [    Test worker] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.1.2.Final}
+2021-12-29 18:32:27.222  INFO 35037 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+Hibernate: create table history (id bigint not null, completed_at timestamp, quiz_id bigint, username varchar(255), primary key (id))
+Hibernate: create table quiz (id bigint not null, author varchar(255), text varchar(255), title varchar(255), primary key (id))
+Hibernate: create table quiz_answer (owner_id bigint not null, answer bigint)
+Hibernate: create table quiz_options (owner_id bigint not null, option varchar(255))
+Hibernate: create table user (id bigint not null, password varchar(255), role varchar(255), username varchar(255), primary key (id))
+Hibernate: create index idx_history_username_quiz_id on history (username, quiz_id)
+Hibernate: create sequence hibernate_sequence start with 1 increment by 1
+Hibernate: alter table quiz_answer add constraint FK3blgdh5utj9lkwy4phwq01ev9 foreign key (owner_id) references quiz
+Hibernate: alter table quiz_options add constraint FK4h20kauqgq2dyi7l68rv16jur foreign key (owner_id) references quiz
+2021-12-29 18:32:28.094  INFO 35037 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-29 18:32:28.105  INFO 35037 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-12-29 18:32:28.612  WARN 35037 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-12-29 18:32:29.157  INFO 35037 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2021-12-29 18:32:29.212  INFO 35037 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@738f5399, org.springframework.security.web.context.SecurityContextPersistenceFilter@3f12da0c, org.springframework.security.web.header.HeaderWriterFilter@5ade3e0f, org.springframework.security.web.authentication.logout.LogoutFilter@8133217, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@115a9556, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@45434ac, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7db548ff, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4aa8f035, org.springframework.security.web.session.SessionManagementFilter@183cdc, org.springframework.security.web.access.ExceptionTranslationFilter@533d8d75, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2cfa8736]
+2021-12-29 18:32:29.557  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8889 (http) with context path ''
+2021-12-29 18:32:29.575  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Started WebQuizEngine in 5.942 seconds (JVM running for 6.874)
+2021-12-29 18:32:30.036  INFO 35037 --- [nio-8889-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-29 18:32:30.037  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-29 18:32:30.040  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 3 ms
+Hibernate: select user0_.id as col_0_0_ from user user0_ where user0_.username=? limit ?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into user (password, role, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 2?[0m
+Hibernate: select user0_.id as col_0_0_ from user user0_ where user0_.username=? limit ?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into user (password, role, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 3?[0m
+2021-12-29 18:32:30.530  WARN 35037 --- [nio-8889-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public void engine.presentation.UserController.registerUser(engine.businesslayer.User): [Field error in object 'user' on field 'username': rejected value [google.com]; codes [Email.user.username,Email.username,Email.java.lang.String,Email]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username],[Ljavax.validation.constraints.Pattern$Flag;@1439c3ac,.*]; default message [must be a well-formed email address]] ]
+?[1;31m
+Start test 4?[0m
+2021-12-29 18:32:30.577  WARN 35037 --- [nio-8889-exec-4] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public void engine.presentation.UserController.registerUser(engine.businesslayer.User): [Field error in object 'user' on field 'username': rejected value [well@googlecom]; codes [Pattern.user.username,Pattern.username,Pattern.java.lang.String,Pattern]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.username,username]; arguments []; default message [username],[Ljavax.validation.constraints.Pattern$Flag;@49688b45,.*\..*]; default message [must match ".*\..*"]] ]
+?[1;31m
+Start test 5?[0m
+Hibernate: select user0_.id as col_0_0_ from user user0_ where user0_.username=? limit ?
+?[1;31m
+Start test 6?[0m
+2021-12-29 18:32:30.612  WARN 35037 --- [nio-8889-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public void engine.presentation.UserController.registerUser(engine.businesslayer.User): [Field error in object 'user' on field 'password': rejected value [1234]; codes [Size.user.password,Size.password,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password],2147483647,5]; default message [size must be between 5 and 2147483647]] ]
+?[1;31m
+Start test 7?[0m
+2021-12-29 18:32:30.624  WARN 35037 --- [nio-8889-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [0] in public void engine.presentation.UserController.registerUser(engine.businesslayer.User): [Field error in object 'user' on field 'password': rejected value [123]; codes [Size.user.password,Size.password,Size.java.lang.String,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [user.password,password]; arguments []; default message [password],2147483647,5]; default message [size must be between 5 and 2147483647]] ]
+?[1;31m
+Start test 8?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+?[1;31m
+Start test 9?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+?[1;31m
+Start test 10?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 11?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 12?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 13?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 14?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 15?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 16?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 17?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 18?[0m
+?[1;31m
+Start test 19?[0m
+?[1;31m
+Start test 20?[0m
+?[1;31m
+Start test 21?[0m
+?[1;31m
+Start test 22?[0m
+?[1;31m
+Start test 23?[0m
+?[1;31m
+Start test 24?[0m
+?[1;31m
+Start test 25?[0m
+?[1;31m
+Start test 26?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 27?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 28?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 29?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 30?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 31?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 32?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 33?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+?[1;31m
+Start test 34?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 35?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 36?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 37?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 38?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 39?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 40?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 41?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 42?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 43?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 44?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 45?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 46?[0m
+2021-12-29 18:32:34.229  INFO 35037 --- [       Thread-5] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2021-12-29 18:32:34.232  INFO 35037 --- [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2021-12-29 18:32:34.315  INFO 35037 --- [       Thread-5] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.6)
+
+2021-12-29 18:32:34.355  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Starting WebQuizEngine using Java 17.0.1 on Hyeseungs-MacBook-Pro-2.local with PID 35037 (started by litaro in /Users/litaro/Desktop/Projects/Web Quiz Engine/Web Quiz Engine/task)
+2021-12-29 18:32:34.356  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : No active profile set, falling back to default profiles: default
+2021-12-29 18:32:34.656  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-12-29 18:32:34.672  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 15 ms. Found 3 JPA repository interfaces.
+2021-12-29 18:32:34.772  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8889 (http)
+2021-12-29 18:32:34.773  INFO 35037 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-12-29 18:32:34.773  INFO 35037 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-12-29 18:32:34.798  INFO 35037 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-12-29 18:32:34.798  INFO 35037 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 440 ms
+2021-12-29 18:32:34.835  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Starting...
+2021-12-29 18:32:34.844  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Start completed.
+2021-12-29 18:32:34.844  INFO 35037 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:../quizdb'
+2021-12-29 18:32:34.885  INFO 35037 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-29 18:32:34.890  INFO 35037 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-12-29 18:32:34.999  INFO 35037 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-29 18:32:34.999  INFO 35037 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-12-29 18:32:35.096  WARN 35037 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-12-29 18:32:35.227  INFO 35037 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2021-12-29 18:32:35.238  INFO 35037 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@8332250, org.springframework.security.web.context.SecurityContextPersistenceFilter@4aac349f, org.springframework.security.web.header.HeaderWriterFilter@743fa275, org.springframework.security.web.authentication.logout.LogoutFilter@529fceed, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@62c58fb, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2f691133, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@26cc22a1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@d6f9270, org.springframework.security.web.session.SessionManagementFilter@380cf46d, org.springframework.security.web.access.ExceptionTranslationFilter@5807a4f5, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@13511ea2]
+2021-12-29 18:32:35.312  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8889 (http) with context path ''
+2021-12-29 18:32:35.321  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Started WebQuizEngine in 0.991 seconds (JVM running for 12.62)
+?[1;31m
+Start test 47?[0m
+2021-12-29 18:32:35.329  INFO 35037 --- [nio-8889-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-29 18:32:35.329  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-29 18:32:35.331  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 48?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 49?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 50?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 51?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 52?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 53?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 54?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 55?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 56?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 57?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.435  WARN 35037 --- [nio-8889-exec-7] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries<LF> at [Source: (PushbackInputStream); line: 4, column: 4]]
+?[1;31m
+Start test 58?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.522  WARN 35037 --- [nio-8889-exec-2] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries<LF> at [Source: (PushbackInputStream); line: 5, column: 4]]
+?[1;31m
+Start test 59?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.610  WARN 35037 --- [nio-8889-exec-9] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries<LF> at [Source: (PushbackInputStream); line: 4, column: 4]]
+?[1;31m
+Start test 60?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.708  WARN 35037 --- [nio-8889-exec-5] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries<LF> at [Source: (PushbackInputStream); line: 5, column: 4]]
+?[1;31m
+Start test 61?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.813  WARN 35037 --- [nio-8889-exec-3] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.web.bind.MethodArgumentNotValidException: Validation failed for argument [1] in public engine.businesslayer.Quiz engine.presentation.QuizController.createNewQuiz(org.springframework.security.core.userdetails.UserDetails,engine.businesslayer.Quiz) with 2 errors: [Field error in object 'quiz' on field 'options': rejected value [[]]; codes [NotEmpty.quiz.options,NotEmpty.options,NotEmpty.java.util.List,NotEmpty]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [quiz.options,options]; arguments []; default message [options]]; default message [must not be empty]] [Field error in object 'quiz' on field 'options': rejected value [[]]; codes [Size.quiz.options,Size.options,Size.java.util.List,Size]; arguments [org.springframework.context.support.DefaultMessageSourceResolvable: codes [quiz.options,options]; arguments []; default message [options],2147483647,2]; default message [options should contain at least 2 items]] ]
+?[1;31m
+Start test 62?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.899  WARN 35037 --- [nio-8889-exec-6] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries<LF> at [Source: (PushbackInputStream); line: 5, column: 4]]
+?[1;31m
+Start test 63?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+2021-12-29 18:32:36.983  WARN 35037 --- [nio-8889-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries; nested exception is com.fasterxml.jackson.core.JsonParseException: Unexpected character ('"' (code 34)): was expecting comma to separate Object entries<LF> at [Source: (PushbackInputStream); line: 5, column: 4]]
+?[1;31m
+Start test 64?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 65?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 66?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 67?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 68?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 69?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 70?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 71?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 72?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 73?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 74?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 75?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 76?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 77?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 78?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 79?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 80?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 81?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 82?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 83?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 84?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 85?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 86?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 87?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 88?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 89?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 90?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 91?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 92?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 93?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 94?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 95?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 96?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 97?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 98?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 99?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 100?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 101?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 102?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 103?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 104?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 105?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 106?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 107?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 108?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 109?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 110?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 111?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 112?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 113?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 114?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 115?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 116?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 117?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 118?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 119?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 120?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 121?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 122?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 123?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 124?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 125?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 126?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 127?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 128?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 129?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 130?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 131?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 132?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 133?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 134?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 135?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 136?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 137?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 138?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 139?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 140?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 141?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 142?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 143?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 144?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 145?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 146?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 147?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 148?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 149?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 150?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 151?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 152?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 153?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 154?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 155?[0m
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.6)
+
+2021-12-29 18:32:45.299  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Starting WebQuizEngine using Java 17.0.1 on Hyeseungs-MacBook-Pro-2.local with PID 35037 (started by litaro in /Users/litaro/Desktop/Projects/Web Quiz Engine/Web Quiz Engine/task)
+2021-12-29 18:32:45.299  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : No active profile set, falling back to default profiles: default
+2021-12-29 18:32:45.437  INFO 35037 --- [       Thread-7] com.zaxxer.hikari.HikariDataSource       : HikariPool-2 - Shutdown completed.
+2021-12-29 18:32:45.515  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-12-29 18:32:45.524  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 8 ms. Found 3 JPA repository interfaces.
+2021-12-29 18:32:45.622  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8889 (http)
+2021-12-29 18:32:45.623  INFO 35037 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-12-29 18:32:45.624  INFO 35037 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-12-29 18:32:45.644  INFO 35037 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-12-29 18:32:45.644  INFO 35037 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 343 ms
+2021-12-29 18:32:45.681  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Starting...
+2021-12-29 18:32:45.688  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Start completed.
+2021-12-29 18:32:45.688  INFO 35037 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:../quizdb'
+2021-12-29 18:32:45.725  INFO 35037 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-29 18:32:45.730  INFO 35037 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-12-29 18:32:45.807  INFO 35037 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-29 18:32:45.808  INFO 35037 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-12-29 18:32:45.889  WARN 35037 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-12-29 18:32:46.019  INFO 35037 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2021-12-29 18:32:46.028  INFO 35037 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@773cce4b, org.springframework.security.web.context.SecurityContextPersistenceFilter@2529b982, org.springframework.security.web.header.HeaderWriterFilter@4e21c29, org.springframework.security.web.authentication.logout.LogoutFilter@4fab8da6, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@1d992d72, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@350e51da, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@21990006, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@2a99be92, org.springframework.security.web.session.SessionManagementFilter@647c48b4, org.springframework.security.web.access.ExceptionTranslationFilter@676eeb26, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@529fee10]
+2021-12-29 18:32:46.106  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8889 (http) with context path ''
+2021-12-29 18:32:46.113  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Started WebQuizEngine in 0.838 seconds (JVM running for 23.411)
+?[1;31m
+Start test 156?[0m
+2021-12-29 18:32:46.117  INFO 35037 --- [nio-8889-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-29 18:32:46.117  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-29 18:32:46.119  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 2 ms
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 157?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 158?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 159?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+?[1;31m
+Start test 160?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 161?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 162?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 163?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 164?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 165?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 166?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 167?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 168?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 169?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 170?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 171?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+?[1;31m
+Start test 172?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 173?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 174?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 175?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 176?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 177?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 178?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 179?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 180?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 181?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 182?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 183?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select answer0_.owner_id as owner_id1_2_0_, answer0_.answer as answer2_2_0_ from quiz_answer answer0_ where answer0_.owner_id=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? and history0_.id=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into history (completed_at, quiz_id, username, id) values (?, ?, ?, ?)
+?[1;31m
+Start test 184?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 185?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 186?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 187?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 188?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 189?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 190?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ? offset ?
+?[1;31m
+Start test 191?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 192?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 193?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 194?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 195?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 196?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ?
+Hibernate: select count(history0_.id) as col_0_0_ from history history0_ where history0_.username=?
+?[1;31m
+Start test 197?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ? offset ?
+?[1;31m
+Start test 198?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select history0_.id as id1_0_, history0_.completed_at as complete2_0_, history0_.quiz_id as quiz_id3_0_, history0_.username as username4_0_ from history history0_ where history0_.username=? order by history0_.completed_at desc limit ? offset ?
+?[1;31m
+Start test 199?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: delete from quiz_answer where owner_id=?
+Hibernate: delete from quiz_options where owner_id=?
+Hibernate: delete from quiz where id=?
+?[1;31m
+Start test 200?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 201?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 202?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 203?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 204?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 205?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 206?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 207?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+Hibernate: delete from quiz_answer where owner_id=?
+Hibernate: delete from quiz_options where owner_id=?
+Hibernate: delete from quiz where id=?
+?[1;31m
+Start test 208?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 209?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 210?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 211?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 212?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 213?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 214?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 215?[0m
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::                (v2.5.6)
+
+2021-12-29 18:32:52.072  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Starting WebQuizEngine using Java 17.0.1 on Hyeseungs-MacBook-Pro-2.local with PID 35037 (started by litaro in /Users/litaro/Desktop/Projects/Web Quiz Engine/Web Quiz Engine/task)
+2021-12-29 18:32:52.073  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : No active profile set, falling back to default profiles: default
+2021-12-29 18:32:52.193  INFO 35037 --- [       Thread-9] com.zaxxer.hikari.HikariDataSource       : HikariPool-3 - Shutdown completed.
+2021-12-29 18:32:52.273  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2021-12-29 18:32:52.281  INFO 35037 --- [    Test worker] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 7 ms. Found 3 JPA repository interfaces.
+2021-12-29 18:32:52.358  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8889 (http)
+2021-12-29 18:32:52.359  INFO 35037 --- [    Test worker] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2021-12-29 18:32:52.359  INFO 35037 --- [    Test worker] org.apache.catalina.core.StandardEngine  : Starting Servlet engine: [Apache Tomcat/9.0.54]
+2021-12-29 18:32:52.375  INFO 35037 --- [    Test worker] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2021-12-29 18:32:52.375  INFO 35037 --- [    Test worker] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 299 ms
+2021-12-29 18:32:52.403  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Starting...
+2021-12-29 18:32:52.411  INFO 35037 --- [    Test worker] com.zaxxer.hikari.HikariDataSource       : HikariPool-4 - Start completed.
+2021-12-29 18:32:52.414  INFO 35037 --- [    Test worker] o.s.b.a.h2.H2ConsoleAutoConfiguration    : H2 console available at '/h2-console'. Database available at 'jdbc:h2:file:../quizdb'
+2021-12-29 18:32:52.450  INFO 35037 --- [    Test worker] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [name: default]
+2021-12-29 18:32:52.454  INFO 35037 --- [    Test worker] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+2021-12-29 18:32:52.533  INFO 35037 --- [    Test worker] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000490: Using JtaPlatform implementation: [org.hibernate.engine.transaction.jta.platform.internal.NoJtaPlatform]
+2021-12-29 18:32:52.533  INFO 35037 --- [    Test worker] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2021-12-29 18:32:52.608  WARN 35037 --- [    Test worker] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2021-12-29 18:32:52.718  INFO 35037 --- [    Test worker] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 14 endpoint(s) beneath base path '/actuator'
+2021-12-29 18:32:52.727  INFO 35037 --- [    Test worker] o.s.s.web.DefaultSecurityFilterChain     : Will secure any request with [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6926ba19, org.springframework.security.web.context.SecurityContextPersistenceFilter@77b9b96, org.springframework.security.web.header.HeaderWriterFilter@22d5b255, org.springframework.security.web.authentication.logout.LogoutFilter@63aaa80d, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@7859fb84, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@35d6c1f7, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3a1e8a02, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@26e2ce37, org.springframework.security.web.session.SessionManagementFilter@72ae0c8f, org.springframework.security.web.access.ExceptionTranslationFilter@1af50d5b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@3208293e]
+2021-12-29 18:32:52.795  INFO 35037 --- [    Test worker] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8889 (http) with context path ''
+2021-12-29 18:32:52.805  INFO 35037 --- [    Test worker] engine.WebQuizEngine                     : Started WebQuizEngine in 0.758 seconds (JVM running for 30.103)
+?[1;31m
+Start test 216?[0m
+2021-12-29 18:32:52.809  INFO 35037 --- [nio-8889-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2021-12-29 18:32:52.809  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2021-12-29 18:32:52.810  INFO 35037 --- [nio-8889-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 217?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 218?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 219?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 220?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_0_, quiz0_.author as author2_1_0_, quiz0_.text as text3_1_0_, quiz0_.title as title4_1_0_ from quiz quiz0_ where quiz0_.id=?
+?[1;31m
+Start test 221?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 222?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 223?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 224?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 225?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 226?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 227?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 228?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 229?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 230?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: call next value for hibernate_sequence
+Hibernate: insert into quiz (author, text, title, id) values (?, ?, ?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_answer (owner_id, answer) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+Hibernate: insert into quiz_options (owner_id, option) values (?, ?)
+?[1;31m
+Start test 231?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select count(quiz0_.id) as col_0_0_ from quiz quiz0_
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 232?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ?
+Hibernate: select count(quiz0_.id) as col_0_0_ from quiz quiz0_
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 233?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ? offset ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+?[1;31m
+Start test 234?[0m
+Hibernate: select user0_.id as id1_4_, user0_.password as password2_4_, user0_.role as role3_4_, user0_.username as username4_4_ from user user0_ where user0_.username=?
+Hibernate: select quiz0_.id as id1_1_, quiz0_.author as author2_1_, quiz0_.text as text3_1_, quiz0_.title as title4_1_ from quiz quiz0_ order by quiz0_.id asc limit ? offset ?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+Hibernate: select options0_.owner_id as owner_id1_3_0_, options0_.option as option2_3_0_ from quiz_options options0_ where options0_.owner_id=?
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
